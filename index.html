@@ -1,165 +1,452 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Phishing Awareness Training</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background: #f4f4f4;
-      color: #333;
-    }
-    h1, h2 {
-      color: #003366;
-    }
-    .section {
-      background: #fff;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    label {
-      display: block;
-      margin: 0.5rem 0 0.2rem;
-    }
-    input[type="text"],
-    input[type="email"] {
-      padding: 0.5rem; 
-      width: 100%;
-      max-width: 400px;
-      margin-bottom: 1rem;
-    }
-    .question {
-      margin: 1rem 0;
-    }
-    .feedback {
-      margin-top: 0.5rem;
-      font-weight: bold;
-    }
-    .correct {
-      color: green;
-    }
-    .incorrect {
-      color: red;
-    }
-    button {
-      margin-top: 0.5rem;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.9rem;
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phishing Awareness Training</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: #f4f4f4;
+            color: #000000;
+        }
+
+        h1 {
+            color: #DC143C;
+            /* Crimson */
+            font-size: 2rem;
+            text-transform: uppercase;
+            text-align: center; /* Center the main title */
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #D18F1B;
+            /* Geebung */
+            border-bottom: 2px solid #FFA500;
+            /* Yellow-orange accent underline */
+            padding-bottom: 0.3rem;
+            margin-top: 2rem; /* Add some space above section titles */
+            margin-bottom: 1rem;
+        }
+
+        .section-title-for-grid { /* New style for the grid's specific title */
+            color: #D18F1B; /* Geebung */
+            font-size: 1.6rem; /* Slightly larger than h2, but not as large as h1 */
+            text-align: center; /* Center the grid title */
+            margin-top: 2.5rem; /* More space above this prominent title */
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #DC143C; /* Five Guys Red underline */
+        }
+
+
+        .section {
+            background: #FFF8DC;
+            /* Corn */
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #000000;
+        }
+
+        p strong {
+            color: #DC143C;
+            /* Crimson for bold highlights */
+        }
+
+        label {
+            display: block;
+            margin: 0.5rem 0 0.2rem;
+            color: #D18F1B;
+            /* Geebung labels */
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            padding: 0.5rem;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 1rem;
+        }
+
+        .question {
+            margin: 1rem 0;
+            padding: 1rem;
+            /* Added padding for questions within the grid */
+            background-color: #FFF8DC;
+            /* Corn */
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            /* Flexbox for question content */
+            flex-direction: column;
+            /* Stack image/text and buttons */
+            justify-content: space-between;
+            /* Pushes buttons to the bottom if content varies */
+        }
+
+        .feedback {
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: #DC143C;
+            /* Crimson for incorrect */
+        }
+
+        .button-container {
+            display: flex;
+            /* Makes buttons go next to each other */
+            gap: 10px;
+            /* Space between buttons */
+            margin-top: 1rem;
+            /* Space above buttons */
+        }
+
+        button {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.9rem;
+            background-color: #FFA500;
+            /* Yellow-Orange */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            flex-grow: 1;
+            /* Allows buttons to share available space */
+            max-width: 150px;
+            /* Limit button width */
+        }
+
+        button:hover {
+            background-color: #D18F1B;
+            /* Geebung on hover */
+        }
+
+        a {
+            color: #DC143C;
+            /* Crimson for links */
+            text-decoration: underline;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            color: #000000;
+        }
+
+        li strong {
+            color: #D18F1B;
+        }
+
+        .highlight-box {
+            background-color: #FFF8DC;
+            /* Corn */
+            border-left: 4px solid #FFA500;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Grid for image questions */
+        .image-questions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            /* Two columns */
+            gap: 20px;
+            /* Space between grid items */
+            padding: 20px;
+            background-color: #FFF8DC;
+            /* Corn */
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            /* Five Guys Red border */
+            border: 5px solid #DC143C;
+        }
+
+        .image-questions-grid .question {
+            margin: 0;
+            /* Remove individual question margin to let grid gap handle spacing */
+        }
+
+        .image-questions-grid img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+
 </head>
+
 <body>
 
-<h1>Phishing Awareness Training Module</h1>
+    <h1>Phishing Awareness Training Module</h1>
 
-<!-- Question Container -->
-<div class="section">
-  <h2>What is Phishing?</h2>
-  <p>Phishing is a cyberattack where attackers pose as trusted individuals or organizations to trick users into revealing sensitive information like passwords, credit card numbers, or personal details. These attacks are often delivered through email, text, or fake websites that look legitimate. Phishing can lead to identity theft, data breaches, and financial loss.</p>
-  <div class="question" data-question="1" data-prompt="What is the main goal of a phishing attack?" data-correct="To steal sensitive information" data-options='["To send spam emails", "To steal sensitive information"]'></div>
-  <div class="question" data-question="2" data-prompt="Which of the following best describes phishing?" data-correct="A deceptive technique to gather personal data" data-options='["A deceptive technique to gather personal data", "Installing antivirus software"]'></div>
-</div>
+    <h2 class="section-title-for-grid">Determine if the following emails are legitimate or phishing emails:</h2>
 
-<div class="section">
-  <h2>Email Phishing</h2>
-  <p>Email phishing is the most common form of phishing, where attackers send emails that appear to be from legitimate sources such as banks, coworkers, or service providers. These messages often contain urgent language, suspicious links, or attachments that prompt users to take immediate action. Falling for these emails can give attackers access to your accounts or personal data.</p>
-  <div class="question" data-question="3" data-prompt="What is a common sign of a phishing email?" data-correct="Urgent language and suspicious links" data-options='["Urgent language and suspicious links", "Correct spelling and grammar"]'></div>
-</div>
+    <div class="image-questions-grid" id="imageQuestionsGrid">
+        <div class="question" data-question="1"
+            data-prompt='<img src="images/phish1.png" alt="Email 1 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Legit" data-options='["Legit", "Phishing"]'>
+        </div>
 
-<div class="section">
-  <h2>Spear Phishing</h2>
-  <p>Spear phishing is a more targeted form of phishing that uses personal details to make the message seem legitimate. Attackers may know your name, job title, or recent activity, making it harder to detect. These emails are often more convincing and designed to steal credentials or install malware.</p>
-  <div class="question" data-question="4" data-prompt="How is spear phishing different from regular phishing?" data-correct="It targets specific individuals using personal information" data-options='["It is sent to thousands of random people", "It targets specific individuals using personal information"]'></div>
-</div>
+        <div class="question" data-question="2"
+            data-prompt='<img src="images/legit1.png" alt="Email 2 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Phishing" data-options='["Legit", "Phishing"]'>
+        </div>
 
-<div class="section">
-  <h2>Smishing & Vishing</h2>
-  <p>Smishing uses SMS (text messages) to trick recipients into clicking malicious links or revealing information. Vishing, on the other hand, happens over voice calls where attackers pretend to be tech support, banks, or government officials. These methods rely on urgency and fear to manipulate victims quickly.</p>
-  <div class="question" data-question="5" data-prompt="Smishing attacks usually occur via:" data-correct="Text messages" data-options='["Phone calls", "Text messages"]'></div>
-  <div class="question" data-question="6" data-prompt="Vishing is different from smishing because:" data-correct="It uses voice calls instead of texts" data-options='["It uses voice calls instead of texts", "It is sent by email"]'></div>
-</div>
+        <div class="question" data-question="3"
+            data-prompt='<img src="images/phish2.png" alt="Email 3 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Phishing" data-options='["Legit", "Phishing"]'>
+        </div>
 
-<div class="section">
-  <h2>Advanced Threats: AI & Deepfake Phishing</h2>
-  <p>AI-generated phishing uses machine learning to craft more realistic and personalized messages. Deepfake phishing takes this a step further by using fake audio or video to impersonate real people, like a CEO or coworker. These advanced tactics can be highly convincing and difficult to detect without proper awareness.</p>
-  <div class="question" data-question="7" data-prompt="What makes deepfake phishing especially dangerous?" data-correct="It can mimic real people’s voices and faces" data-options='["It uses strong passwords", "It can mimic real people’s voices and faces"]'></div>
-</div>
+        <div class="question" data-question="4"
+            data-prompt='<img src="images/legit2.png" alt="Email 4 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Legit" data-options='["Legit", "Phishing"]'>
+        </div>
+    </div>
 
-<div class="section">
-    <h2>Common Red Flags of Phishing</h2>
-    <p>Recognizing phishing attempts can often come down to spotting common red flags. These include unfamiliar or misspelled email addresses, unexpected attachments or links, urgent or threatening language, requests for sensitive information, and poor grammar or formatting. Being able to identify these signs is essential for avoiding scams and protecting your personal and professional data.</p>
-    <div class="question" data-question="8" data-prompt="Which of the following is a red flag in a potential phishing email?" data-correct="An unexpected request for login credentials" data-options='["A company newsletter", "An unexpected request for login credentials"]'></div>
-    <div class="question" data-question="9" data-prompt="Phishing emails often use urgency to:" data-correct="Pressure the user into acting without thinking" data-options='["Make the email easier to ignore", "Pressure the user into acting without thinking"]'></div>
-    <div class="question" data-question="10" data-prompt="You receive an email from 'IT-Support@micr0soft.com'. What should you do?" data-correct="Be cautious—this email address may be spoofed" data-options='["Click the link to verify your account", "Be cautious—this email address may be spoofed"]'></div>
-  </div>
-  
-<div class="section">
-  <h2>How to Report Phishing Attacks at Five Guys</h2>
-  <p>If you believe you've received a phishing email while working at Five Guys, it's important to take action quickly. While the exact internal reporting contact may vary, you should always follow standard corporate security practices to help protect yourself and your team.</p>
-  <p>Here are the recommended steps to report a phishing email:</p>
-  <ul>
-    <li><strong>Step 1:</strong> Check your Outlook or email system for a “Report Phishing” button or plugin. Many corporate systems—including Five Guys—use these tools to simplify reporting.</li>
-    <li><strong>Step 2:</strong> Review your employee handbook or IT security policies. These often include company-specific instructions for reporting suspicious activity.</li>
-    <li><strong>Step 3:</strong> If no internal method is available, use one of these general reporting options:
-      <ul>
-        <li>Forward the phishing email to <a href="mailto:reportphishing@apwg.org">reportphishing@apwg.org</a>.</li>
-        <li>Report the message to your email provider (e.g., Gmail, Outlook).</li>
-        <li>Submit the phishing attempt to the FTC at <a href="https://ReportFraud.ftc.gov" target="_blank">ReportFraud.ftc.gov</a>.</li>
-      </ul>
-    </li>
-  </ul>
-  <p>⚠️ <strong>Important:</strong> Do not click on any links or download any attachments in the suspicious email. Report it first, then delete the message once you've submitted it to the proper channel.</p>
-</div>
 
-<script>
-  function shuffle(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
+    <div class="section">
+        <h2>What is Phishing?</h2>
+        <p>Phishing is a cyberattack where attackers pose as trusted individuals or organizations to trick users into
+            revealing sensitive information like passwords, credit card numbers, or personal details. These attacks are
+            often delivered through email, text, or fake websites that look legitimate. Phishing can lead to identity
+            theft, data breaches, and financial loss.</p>
+        <div class="question" data-question="1" data-prompt="What is the main goal of a phishing attack?"
+            data-correct="To steal sensitive information"
+            data-options='["To send spam emails", "To steal sensitive information"]'></div>
+        <div class="question" data-question="2" data-prompt="Which of the following best describes phishing?"
+            data-correct="A deceptive technique to gather personal data"
+            data-options='["A deceptive technique to gather personal data", "Requesting login information for account verification purposes"]'>
+        </div>
+    </div>
 
-  function checkAnswer(button, selected, correct) {
-    const feedbackEl = button.parentElement.querySelector(".feedback");
-    if (selected === correct) {
-      feedbackEl.innerHTML = "✅ Correct!";
-      feedbackEl.className = "feedback correct";
-      button.parentElement.querySelectorAll("button").forEach(btn => btn.disabled = true);
-    } else {
-      feedbackEl.innerHTML = "❌ Incorrect. Try again.";
-      feedbackEl.className = "feedback incorrect";
-    }
-  }
+    <div class="section">
+        <h2>Email Phishing</h2>
+        <p>Email phishing is the most common form of phishing, where attackers send emails that appear to be from
+            legitimate sources such as banks, coworkers, or service providers. These messages often contain urgent
+            language, suspicious links, or attachments that prompt users to take immediate action. Falling for these
+            emails can give attackers access to your accounts or personal data.</p>
+        <div class="question" data-question="3" data-prompt="What is a common sign of a phishing email?"
+            data-correct="Urgent language and suspicious links"
+            data-options='["Urgent language and suspicious links", "Correct spelling and grammar"]'></div>
+    </div>
 
-  function renderQuestions() {
-    document.querySelectorAll('.question').forEach(q => {
-      const prompt = q.dataset.prompt;
-      const correct = q.dataset.correct;
-      const options = JSON.parse(q.dataset.options);
-      q.innerHTML = `<p><strong>${q.dataset.question}. ${prompt}</strong></p>`;
+    <div class="section">
+        <h2>Spear Phishing</h2>
+        <p>Spear phishing is a more targeted form of phishing that uses personal details to make the message seem
+            legitimate. Attackers may know your name, job title, or recent activity, making it harder to detect. These
+            emails are often more convincing and designed to steal login credentials or install malware.</p>
+        <div class="question" data-question="4" data-prompt="How is spear phishing different from regular phishing?"
+            data-correct="It targets specific individuals using personal information"
+            data-options='["It is sent to thousands of random people", "It targets specific individuals using personal information"]'>
+        </div>
+    </div>
 
-      shuffle(options).forEach(opt => {
-        const btn = document.createElement('button');
-        btn.textContent = opt;
-        btn.onclick = () => checkAnswer(btn, opt, correct);
-        q.appendChild(btn);
-      });
+    <div class="section">
+        <h2>Smishing and Vishing</h2>
+        <p>Smishing uses text messages (SMS) to trick recipients into clicking malicious links, downloading attachments,
+            or revealing sensitive information. Vishing occurs over voice calls, where attackers pretend to be tech
+            support, banks, or government officials. Both methods rely on urgency and fear to quickly manipulate
+            victims.</p>
 
-      const feedback = document.createElement('div');
-      feedback.className = "feedback";
-      q.appendChild(feedback);
-    });
-  }
+        <div class="question" data-question="5"
+            data-prompt="Which of the following best describes how smishing attacks are typically delivered?"
+            data-correct="Through text messages that appear to be from trusted sources" data-options='[
+               "Through links in social media ads",
+               "Through text messages that appear to be from trusted sources"
+             ]'>
+        </div>
 
-  renderQuestions();
-</script>
+        <div class="question" data-question="6"
+            data-prompt="Which scenario is the clearest example of a vishing attack?"
+            data-correct="You get a phone call from someone claiming to be from your bank, pressuring you to confirm your account number."
+            data-options='[
+               "You get a phone call from someone claiming to be from your bank, pressuring you to confirm your account number.",
+               "You get a text saying your package is delayed and asking you to click a link."
+             ]'>
+        </div>
+    </div>
+    <div class="section">
+        <h2>Emerging Threats: AI-Powered and Deepfake Phishing</h2>
+        <p><strong>AI-generated</strong> phishing uses machine learning to create more realistic and personalized
+            messages. <strong>Deepfake phishing</strong> takes this further by using synthetic audio or video to
+            impersonate real individuals, such as a CEO or coworker. These advanced tactics are highly convincing and
+            difficult to detect without proper training and awareness.</p>
+
+        <div class="highlight-box">
+            <p><strong>Warning:</strong> If a message or video seems “off,” <span style="color:#DC143C;">trust your
+                    instincts</span> and verify the sender using a known contact method before reacting.</p>
+        </div>
+
+        <div class="question" data-question="7"
+            data-prompt="Why are deepfake phishing attacks more convincing than traditional phishing methods?"
+            data-correct="They impersonate trusted individuals through realistic audio or video." data-options='[
+               "They use encrypted email servers to avoid spam filters.",
+               "They impersonate trusted individuals through realistic audio or video."
+             ]'>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <h2>Common Red Flags of Phishing</h2>
+        <p>Recognizing phishing attempts often comes down to spotting red flags. These include:</p>
+        <ul>
+            <li><strong>Unfamiliar or misspelled email addresses:</strong> e.g., IT-Support@micr0soft.com</li>
+            <li><strong>Unexpected attachments or links:</strong> e.g., a zip file from someone you don’t know</li>
+            <li><strong>Urgent or threatening language:</strong> e.g., "Your account will be locked in 24 hours!"</li>
+            <li><strong>Requests for sensitive information:</strong> e.g., being asked to confirm your login or Social
+                Security number</li>
+            <li><strong>Poor grammar or formatting:</strong> e.g., "Dear user, You account has been susspended. Click
+                hear to verify."</li>
+        </ul>
+        <p>Being able to identify these signs is essential for avoiding scams and protecting your personal and sensitive
+            information.</p>
+
+        <div class="highlight-box">
+            <p><strong>Tip:</strong> Always check the sender's email address and avoid clicking on unexpected links.
+                <span style="color:#FFA500;">Hover over links</span> before clicking to preview where they lead!
+            </p>
+        </div>
+
+        <div class="question" data-question="8"
+            data-prompt="Which of the following is most likely a sign that an email could be a phishing attempt?"
+            data-correct="An urgent email from an unknown address asking you to verify your account credentials"
+            data-options='[
+               "An urgent email from an unknown address asking you to verify your account credentials",
+               "An email from your manager with a company report attached"
+             ]'>
+        </div>
+
+        <div class="question" data-question="9" data-prompt="Phishing emails often use urgency to:"
+            data-correct="Pressure the user into acting without thinking" data-options='[
+               "Ensure the message stands out in a crowded inbox",
+               "Pressure the user into acting without thinking"
+             ]'>
+        </div>
+
+        <div class="question" data-question="10"
+            data-prompt="You receive an email from 'IT-Support@micr0soft.com'. What should you do?"
+            data-correct="Be cautious—this email address may be spoofed" data-options='[
+               "Click the link to verify your account",
+               "Be cautious—this email address may be spoofed"
+             ]'>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <h2>How to Report Phishing Attacks at Five Guys</h2>
+        <p>If you believe you've received a phishing email while working at Five Guys, it's important to take action
+            quickly. While the exact internal reporting contact may vary, you should always follow standard corporate
+            security practices to help protect yourself and your team.</p>
+        <p>Here are the recommended steps to report a phishing email:</p>
+        <ul>
+            <li><strong>Step 1:</strong> Check your Outlook or email client for a “Report Phishing” button or plugin.
+                Many corporate environments use these tools to make reporting suspicious emails quick and easy.</li>
+            <li><strong>Step 2:</strong> Review your employee handbook or IT security policies, as they often include
+                company-specific instructions for reporting suspicious activities.</li>
+            <li><strong>Step 3:</strong> If no internal method is available, use one of these general reporting options:
+                <ul>
+                    <li>Forward the phishing email to <a
+                            href="mailto:reportphishing@apwg.org">reportphishing@apwg.org</a>.</li>
+                    <li>Report the message to your email provider (e.g., Gmail, Outlook).</li>
+                    <li>Submit the phishing attempt to the FTC at <a href="https://ReportFraud.ftc.gov"
+                            target="_blank">ReportFraud.ftc.gov</a>.</li>
+                </ul>
+            </li>
+        </ul>
+        <p>⚠️ <strong>Important:</strong> Do not click on any links or download any attachments in the suspicious email.
+            Report it first, then delete the message once you've submitted it to the proper channel.</p>
+    </div>
+
+    <script>
+        // Fisher-Yates shuffle algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function checkAnswer(button, selected, correct) {
+            const feedbackEl = button.parentElement.parentElement.querySelector(".feedback");
+            if (selected === correct) {
+                feedbackEl.innerHTML = "✅ Correct!";
+                feedbackEl.className = "feedback correct";
+                button.parentElement.querySelectorAll("button").forEach(btn => btn.disabled = true);
+            } else {
+                feedbackEl.innerHTML = "❌ Incorrect. Try again.";
+                feedbackEl.className = "feedback incorrect";
+            }
+        }
+
+        function renderQuestions() {
+            document.querySelectorAll('.question').forEach(q => {
+                const prompt = q.dataset.prompt;
+                const correct = q.dataset.correct;
+                // Parse options and shuffle them before creating buttons
+                const options = shuffleArray(JSON.parse(q.dataset.options));
+
+                q.innerHTML = `<p>${prompt}</p>`;
+
+                const buttonContainer = document.createElement('div');
+                buttonContainer.className = "button-container";
+                q.appendChild(buttonContainer);
+
+                options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.textContent = opt;
+                    btn.onclick = () => checkAnswer(btn, opt, correct);
+                    buttonContainer.appendChild(btn);
+                });
+
+                const feedback = document.createElement('div');
+                feedback.className = "feedback";
+                q.appendChild(feedback);
+            });
+        }
+
+        // Function to shuffle the question divs within the image-questions-grid
+        function shuffleImageQuestions() {
+            const gridContainer = document.getElementById('imageQuestionsGrid');
+            if (gridContainer) {
+                const questions = Array.from(gridContainer.children); // Convert HTMLCollection to Array
+                shuffleArray(questions); // Shuffle the array of question elements
+
+                // Append shuffled elements back to the container
+                questions.forEach(q => gridContainer.appendChild(q));
+            }
+        }
+
+        // Run the shuffle for image questions first, then render all questions
+        document.addEventListener('DOMContentLoaded', () => {
+            shuffleImageQuestions(); // Shuffle the order of the image question divs
+            renderQuestions(); // Render the content and buttons for all questions (with shuffled button options)
+        });
+    </script>
 
 </body>
+
 </html>
