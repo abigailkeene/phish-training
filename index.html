@@ -19,7 +19,8 @@
             /* Crimson */
             font-size: 2rem;
             text-transform: uppercase;
-            text-align: center; /* Center the main title */
+            text-align: center;
+            /* Center the main title */
             margin-bottom: 2rem;
         }
 
@@ -29,18 +30,25 @@
             border-bottom: 2px solid #FFA500;
             /* Yellow-orange accent underline */
             padding-bottom: 0.3rem;
-            margin-top: 2rem; /* Add some space above section titles */
+            margin-top: 2rem;
+            /* Add some space above section titles */
             margin-bottom: 1rem;
         }
 
-        .section-title-for-grid { /* New style for the grid's specific title */
-            color: #D18F1B; /* Geebung */
-            font-size: 1.6rem; /* Slightly larger than h2, but not as large as h1 */
-            text-align: center; /* Center the grid title */
-            margin-top: 2.5rem; /* More space above this prominent title */
+        .section-title-for-grid {
+            /* New style for the grid's specific title */
+            color: #D18F1B;
+            /* Geebung */
+            font-size: 1.6rem;
+            /* Slightly larger than h2, but not as large as h1 */
+            text-align: center;
+            /* Center the grid title */
+            margin-top: 2.5rem;
+            /* More space above this prominent title */
             margin-bottom: 1.5rem;
             padding-bottom: 0.5rem;
-            border-bottom: 3px solid #DC143C; /* Five Guys Red underline */
+            border-bottom: 3px solid #DC143C;
+            /* Five Guys Red underline */
         }
 
 
@@ -200,31 +208,6 @@
 
     <h1>Phishing Awareness Training Module</h1>
 
-    <h2 class="section-title-for-grid">Determine if the following emails are legitimate or phishing emails:</h2>
-
-    <div class="image-questions-grid" id="imageQuestionsGrid">
-        <div class="question" data-question="1"
-            data-prompt='<img src="phish1.png" alt="Email 1 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
-            data-correct="Legit" data-options='["Legit", "Phishing"]'>
-        </div>
-
-        <div class="question" data-question="2"
-            data-prompt='<img src="legit1.png" alt="Email 2 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
-            data-correct="Phishing" data-options='["Legit", "Phishing"]'>
-        </div>
-
-        <div class="question" data-question="3"
-            data-prompt='<img src="phish2.png" alt="Email 3 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
-            data-correct="Phishing" data-options='["Legit", "Phishing"]'>
-        </div>
-
-        <div class="question" data-question="4"
-            data-prompt='<img src="legit2.png" alt="Email 4 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
-            data-correct="Legit" data-options='["Legit", "Phishing"]'>
-        </div>
-    </div>
-
-
     <div class="section">
         <h2>What is Phishing?</h2>
         <p>Phishing is a cyberattack where attackers pose as trusted individuals or organizations to trick users into
@@ -380,6 +363,34 @@
             Report it first, then delete the message once you've submitted it to the proper channel.</p>
     </div>
 
+    <h2 class="section-title-for-grid">Friend or Phisher - Can You Tell the Difference?</h2>
+
+    <div class="image-questions-grid" id="imageQuestionsGrid">
+        <div class="question" data-question="1"
+            data-prompt='<img src="images/phish1.png" alt="Email 1 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Phishing" data-options='["Legit", "Phishing"]'
+            data-feedback='{"Legit": "❌ This is a phishing email. It likely uses suspicious links, fake urgency, or sender impersonation."}'>
+        </div>
+
+        <div class="question" data-question="2"
+            data-prompt='<img src="images/legit1.png" alt="Email 2 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Legit" data-options='["Legit", "Phishing"]'
+            data-feedback='{"Phishing": "❌ This is a legitimate email. It has no suspicious links or urgent language, and the sender is verifiable."}'>
+        </div>
+
+        <div class="question" data-question="3"
+            data-prompt='<img src="images/phish2.png" alt="Email 3 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Phishing" data-options='["Legit", "Phishing"]'
+            data-feedback='{"Legit": "❌ This is a phishing email. Look out for odd grammar or requests for sensitive info."}'>
+        </div>
+
+        <div class="question" data-question="4"
+            data-prompt='<img src="images/legit2.png" alt="Email 4 screenshot" class="rounded-lg shadow-lg border border-gray-600 w-full h-auto" style="max-height: 300px; margin-bottom: 1rem;">'
+            data-correct="Legit" data-options='["Legit", "Phishing"]'
+            data-feedback='{"Phishing": "❌ This email is legitimate. Everything checks out—including sender and formatting."}'>
+        </div>
+    </div>
+
     <script>
         // Fisher-Yates shuffle algorithm
         function shuffleArray(array) {
@@ -391,16 +402,27 @@
         }
 
         function checkAnswer(button, selected, correct) {
-            const feedbackEl = button.parentElement.parentElement.querySelector(".feedback");
+            const questionDiv = button.closest(".question");
+            const feedbackEl = questionDiv.querySelector(".feedback");
+            const questionId = questionDiv.dataset.question;
+
+            // Check if the question has specific feedback messages for wrong answers
+            let explanation = "";
+            if (questionDiv.dataset.feedback) {
+                const feedbackMap = JSON.parse(questionDiv.dataset.feedback);
+                explanation = feedbackMap[selected] || "";
+            }
+
             if (selected === correct) {
                 feedbackEl.innerHTML = "✅ Correct!";
                 feedbackEl.className = "feedback correct";
                 button.parentElement.querySelectorAll("button").forEach(btn => btn.disabled = true);
             } else {
-                feedbackEl.innerHTML = "❌ Incorrect. Try again.";
+                feedbackEl.innerHTML = explanation || "❌ Incorrect. Try again.";
                 feedbackEl.className = "feedback incorrect";
             }
         }
+
 
         function renderQuestions() {
             document.querySelectorAll('.question').forEach(q => {
